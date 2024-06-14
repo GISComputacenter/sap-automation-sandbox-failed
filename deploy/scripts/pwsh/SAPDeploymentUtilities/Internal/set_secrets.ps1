@@ -36,7 +36,7 @@ Function Set-SAPSPNSecrets {
 
     
 .LINK
-    https://github.com/Azure/sap-automation
+    https://github.com/GISComputacenter/sap-automation
 
 .NOTES
     v0.1 - Initial version
