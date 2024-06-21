@@ -137,10 +137,10 @@ variable "spn_id"                      { description = "SPN ID to be used for th
 variable "app_service"                 {
                                           description = "Details of the Application Service"
                                           default     = {}
-                                          validation {
-                                            condition = (
-                                              (var.app_service.use && length(trimspace(try(var.app_service.app_id, ""))) != 0 && length(trimspace(try(var.app_service.client_secret, ""))) != 0) || !var.app_service.use
-                                            )
-                                            error_message = "If using the Web App both the 'app_registration_app_id' and 'webapp_client_secret' variables must be defined."
-                                          }
+                                         # validation {
+                                         #   condition = (
+                                         #     (var.app_service.use && length(trimspace(try(var.app_service.app_id, ""))) != 0 && length(trimspace(try(var.app_service.client_secret, ""))) != 0) || !var.app_service.use
+                                         #   )
+                                         #   error_message = "If using the Web App both the 'app_registration_app_id' and 'webapp_client_secret' variables must be defined."
+                                         # }
                                        }
