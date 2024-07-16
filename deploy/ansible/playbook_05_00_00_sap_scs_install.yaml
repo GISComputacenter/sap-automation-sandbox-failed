@@ -523,8 +523,10 @@
                 public:                true
               vars:
                 scs_instance_number:   "{{ sid_to_be_deployed.ascs_inst_no }}"
-                scs_virtual_hostname:  "{{ custom_scs_virtual_hostname | default(sap_sid | lower ~ 'scs' ~ scs_instance_number ~ 'cl1', true) }}"
-                ers_virtual_hostname:  "{{ custom_ers_virtual_hostname | default(sap_sid | lower ~ 'ers' ~ ers_instance_number ~ 'cl2', true) }}"
+#                scs_virtual_hostname:  "{{ custom_scs_virtual_hostname | default(sap_sid | lower ~ 'scs' ~ scs_instance_number ~ 'cl1', true) }}"
+#                ers_virtual_hostname:  "{{ custom_ers_virtual_hostname | default(sap_sid | lower ~ 'ers' ~ ers_instance_number ~ 'cl2', true) }}"
+                scs_virtual_hostname: "{{ custom_scs_virtual_hostname | default('cceq2', true) }}"
+                ers_virtual_hostname: "{{ custom_ers_virtual_hostname | default('erseq2', true) }}"
               loop:                    "{{ all_sids }}"
               loop_control:
                 loop_var:              sid_to_be_deployed
@@ -644,8 +646,10 @@
                 secondary_node_ip_ers:        "{{ hostvars[ansible_play_hosts_all[1]]['ansible_eth0']['ipv4']['address'] }}"
                 ansible_winrm_transport:              credssp
                 ansible_winrm_server_cert_validation: ignore
-                scs_virtual_hostname:         "{{ custom_scs_virtual_hostname | default(sap_sid | lower ~ 'scs' ~ scs_instance_number ~ 'cl1', true) }}"
-                ers_virtual_hostname:         "{{ custom_ers_virtual_hostname | default(sap_sid | lower ~ 'ers' ~ ers_instance_number ~ 'cl2', true) }}"
+#                scs_virtual_hostname:         "{{ custom_scs_virtual_hostname | default(sap_sid | lower ~ 'scs' ~ scs_instance_number ~ 'cl1', true) }}"
+#                ers_virtual_hostname:         "{{ custom_ers_virtual_hostname | default(sap_sid | lower ~ 'ers' ~ ers_instance_number ~ 'cl2', true) }}"
+                scs_virtual_hostname: "{{ custom_scs_virtual_hostname | default('cceq2', true) }}"
+                ers_virtual_hostname: "{{ custom_ers_virtual_hostname | default('erseq2', true) }}"
               loop:                    "{{ all_sids }}"
               loop_control:
                 loop_var:              sid_to_be_deployed
