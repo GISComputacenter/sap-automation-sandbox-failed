@@ -82,12 +82,13 @@ data "azurerm_subnet" "subnet_sap_web" {
 resource "azurerm_lb" "scs" {
   provider                             = azurerm.main
   count                                = local.enable_scs_lb_deployment ? 1 : 0
-  name                                 = format("%s%s%s%s",
-                                           var.naming.resource_prefixes.scs_alb,
-                                           local.prefix,
-                                           var.naming.separator,
-                                           local.resource_suffixes.scs_alb
-                                         )
+  name                                 = "cceqs"  # Desired SCS hostname
+#  name                                 = format("%s%s%s%s",
+#                                           var.naming.resource_prefixes.scs_alb,
+#                                           local.prefix,
+#                                           var.naming.separator,
+#                                           local.resource_suffixes.scs_alb
+#                                         )
   resource_group_name                  = var.resource_group[0].name
   location                             = var.resource_group[0].location
   sku                                  = "Standard"
@@ -431,10 +432,11 @@ resource "azurerm_subnet_route_table_association" "subnet_sap_web" {
 resource "azurerm_private_dns_a_record" "scs" {
   provider                             = azurerm.dnsmanagement
   count                                = local.enable_scs_lb_deployment && length(local.dns_label) > 0  && var.register_virtual_network_to_dns ? 1 : 0
-  name                                 = lower(format("%sscs%scl1",
-                                           local.sid,
-                                           var.application_tier.scs_instance_number
-                                         ))
+  name                                 = "cceqs"  # Desired SCS hostname
+#  name                                 = lower(format("%sscs%scl1",
+#                                           local.sid,
+#                                           var.application_tier.scs_instance_number
+#                                         ))
   resource_group_name                  = coalesce(var.management_dns_resourcegroup_name, var.landscape_tfstate.dns_resource_group_name)
   zone_name                            = var.landscape_tfstate.dns_label
   ttl                                  = 300
@@ -444,10 +446,11 @@ resource "azurerm_private_dns_a_record" "scs" {
 resource "azurerm_private_dns_a_record" "ers" {
   provider                             = azurerm.dnsmanagement
   count                                = local.enable_scs_lb_deployment && length(local.dns_label) > 0 && var.register_virtual_network_to_dns ? 1 : 0
-  name                                 = lower(format("%sers%scl2",
-                                            local.sid,
-                                            local.ers_instance_number
-                                          ))
+  name                                 = "erseqs"  # Desired ERS hostname
+#  name                                 = lower(format("%sers%scl2",
+#                                            local.sid,
+#                                            local.ers_instance_number
+#                                          ))
   resource_group_name                  = coalesce(var.management_dns_resourcegroup_name, var.landscape_tfstate.dns_resource_group_name)
   zone_name                            = local.dns_label
   ttl                                  = 300
@@ -457,9 +460,10 @@ resource "azurerm_private_dns_a_record" "ers" {
 resource "azurerm_private_dns_a_record" "web" {
   provider                             = azurerm.dnsmanagement
   count                                = local.enable_web_lb_deployment && length(local.dns_label) > 0 && var.register_virtual_network_to_dns ? 1 : 0
-  name                                 = lower(format("%sweb%s",
-                                           local.sid, var.application_tier.web_instance_number
-                                         ))
+  name                                 = "cceqs"  # Desired WEB DISPATCHER hostname
+#  name                                 = lower(format("%sweb%s",
+#                                           local.sid, var.application_tier.web_instance_number
+#                                         ))
   resource_group_name                  = coalesce(var.management_dns_resourcegroup_name, var.landscape_tfstate.dns_resource_group_name)
   zone_name                            = local.dns_label
   ttl                                  = 300

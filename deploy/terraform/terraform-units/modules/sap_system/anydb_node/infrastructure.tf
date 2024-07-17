@@ -8,12 +8,14 @@
 resource "azurerm_lb" "anydb" {
   provider                             = azurerm.main
   count                                = local.enable_db_lb_deployment ? 1 : 0
-  name                                 = format("%s%s%s%s",
-                                          var.naming.resource_prefixes.db_alb,
-                                          local.prefix,
-                                          var.naming.separator,
-                                          local.resource_suffixes.db_alb
-                                        )
+  name                                 = "de2db"  # Desired DB hostname
+
+#  name                                 = format("%s%s%s%s",
+#                                          var.naming.resource_prefixes.db_alb,
+#                                          local.prefix,
+#                                          var.naming.separator,
+#                                          local.resource_suffixes.db_alb
+#                                        )
   sku                                  = "Standard"
 
   resource_group_name                  = var.resource_group[0].name
@@ -152,7 +154,8 @@ data "azurerm_availability_set" "anydb" {
 resource "azurerm_private_dns_a_record" "db" {
   provider                             = azurerm.dnsmanagement
   count                                = local.enable_db_lb_deployment && length(local.dns_label) > 0 && var.register_virtual_network_to_dns ? 1 : 0
-  name                                 = lower(format("%s%sdb%scl", var.sap_sid, local.anydb_sid, "00"))
+  name                                 = "de2db"  # Desired DB hostname
+#  name                                 = lower(format("%s%sdb%scl", var.sap_sid, local.anydb_sid, "00"))
   resource_group_name                  = coalesce(var.management_dns_resourcegroup_name, var.landscape_tfstate.dns_resource_group_name)
   zone_name                            = local.dns_label
   ttl                                  = 300

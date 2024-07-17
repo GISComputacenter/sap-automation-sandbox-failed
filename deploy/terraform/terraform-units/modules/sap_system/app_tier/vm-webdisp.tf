@@ -504,12 +504,13 @@ resource "azurerm_virtual_machine_extension" "configure_ansible_web" {
 resource "azurerm_lb" "web" {
   provider                             = azurerm.main
   count                                = local.enable_web_lb_deployment ? 1 : 0
-  name                                 = format("%s%s%s%s",
-                                           var.naming.resource_prefixes.web_alb,
-                                           local.prefix,
-                                           var.naming.separator,
-                                           local.resource_suffixes.web_alb
-                                         )
+  name                                 = "cceqs"  # Desired Web dispatcher hostname
+#  name                                 = format("%s%s%s%s",
+#                                           var.naming.resource_prefixes.web_alb,
+#                                           local.prefix,
+#                                           var.naming.separator,
+#                                           local.resource_suffixes.web_alb
+#                                         )
   resource_group_name                  = var.resource_group[0].name
   location                             = var.resource_group[0].location
   sku                                  = "Standard"
