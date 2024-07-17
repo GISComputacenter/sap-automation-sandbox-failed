@@ -82,7 +82,7 @@ data "azurerm_subnet" "subnet_sap_web" {
 resource "azurerm_lb" "scs" {
   provider                             = azurerm.main
   count                                = local.enable_scs_lb_deployment ? 1 : 0
-  name                                 = "cceqs"  # Desired SCS hostname
+  name                                 = "ascseqs"  # Desired SCS hostname
 #  name                                 = format("%s%s%s%s",
 #                                           var.naming.resource_prefixes.scs_alb,
 #                                           local.prefix,
