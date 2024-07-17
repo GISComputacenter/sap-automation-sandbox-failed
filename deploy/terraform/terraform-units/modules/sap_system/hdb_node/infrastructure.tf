@@ -147,7 +147,7 @@ resource "azurerm_lb_rule" "hdb" {
 resource "azurerm_private_dns_a_record" "db" {
   provider                             = azurerm.dnsmanagement
   count                                = local.enable_db_lb_deployment && length(local.dns_label) > 0 && var.register_virtual_network_to_dns ? 1 : 0
-  name                                 = "de2db"  # Desired DB hostname
+  name                                 = "de2dbeqs"  # Desired DB hostname
 #  name                                 = lower(format("%s%sdb%scl", var.sap_sid, local.database_sid, local.database_instance))
   resource_group_name                  = coalesce(var.management_dns_resourcegroup_name, var.landscape_tfstate.dns_resource_group_name)
   zone_name                            = local.dns_label
