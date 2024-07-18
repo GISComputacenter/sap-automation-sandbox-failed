@@ -3,16 +3,6 @@
   ansible.builtin.stat:
     path:                              "/etc/sap_deployment_automation/{{ sap_sid | upper }}/user_created.txt"
   register:                            users_created
-  ignore_errors: yes
-
-- name: "Debug SSH connectivity"
-  ansible.builtin.command: hostname
-  register: ssh_debug
-  ignore_errors: yes
-
-- name: "Print debug information"
-  ansible.builtin.debug:
-    var: ssh_debug
 
 - name:                                "2.2 SAP Permissions: - Directory Permissions"
   ansible.builtin.file:
