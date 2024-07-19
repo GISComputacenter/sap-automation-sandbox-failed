@@ -25,6 +25,7 @@
     - tier != 'hana'
     - tier != 'oracle'
 
+
 - name: "Ensure sapinst_instdir directory exists"
   become: true
   become_user: root
