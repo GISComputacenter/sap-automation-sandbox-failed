@@ -25,6 +25,17 @@
     - tier != 'hana'
     - tier != 'oracle'
 
+- name: "Ensure sapinst_instdir directory exists"
+  become: true
+  become_user: root
+  ansible.builtin.file:
+    path: "{{ tmp_directory }}/{{ this_sid }}/sapinst_instdir"
+    state: directory
+    mode: 0755
+  when:
+    - tier != 'hana'
+    - tier != 'oracle'
+
 - name:                                "Post Installation: check if installation has been tried"
   become_user:                         root
   become:                              true
